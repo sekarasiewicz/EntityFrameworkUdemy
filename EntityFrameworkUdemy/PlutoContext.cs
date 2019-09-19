@@ -31,6 +31,8 @@ namespace EntityFrameworkUdemy
             modelBuilder.Entity<Course>().
                 Property(c => c.Description).
                 HasDefaultValue("Default");
+
+            modelBuilder.Entity<Course>().Property(c => c.Title).IsRequired();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
