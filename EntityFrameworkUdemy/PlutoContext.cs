@@ -27,6 +27,10 @@ namespace EntityFrameworkUdemy
                 .HasOne(ct => ct.Tag)
                 .WithMany(t => t.CourseTags)
                 .HasForeignKey(ct => ct.TagId);
+
+            modelBuilder.Entity<Course>().
+                Property(c => c.Description).
+                HasDefaultValue("Default");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
