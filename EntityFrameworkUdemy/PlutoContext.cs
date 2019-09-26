@@ -41,6 +41,10 @@ namespace EntityFrameworkUdemy
                 HasOne(c => c.Author).
                 WithMany(a => a.Courses).
                 HasForeignKey(c => c.AuthorId).OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Course>().
+                HasOne(c => c.Cover).
+                WithOne(c => c.Course).HasForeignKey<Cover>(c => c.CourseId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

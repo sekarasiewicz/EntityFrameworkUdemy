@@ -19,5 +19,7 @@ namespace EntityFrameworkUdemy
         public List<CourseTag> CourseTags { get; set; }
 
         public Category Category { get; set; }
+        
+        public Cover Cover { get; set; }
     }
 }
