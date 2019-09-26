@@ -33,6 +33,14 @@ namespace EntityFrameworkUdemy
                 HasDefaultValue("Default");
 
             modelBuilder.Entity<Course>().Property(c => c.Title).IsRequired();
+
+            modelBuilder.Entity<Course>().Property(c => c.Name).IsRequired().HasMaxLength(255);
+            modelBuilder.Entity<Course>().Property(c => c.Description).IsRequired().HasMaxLength(2000);
+            modelBuilder.
+                Entity<Course>().
+                HasOne(c => c.Author).
+                WithMany(a => a.Courses).
+                HasForeignKey(c => c.AuthorId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
