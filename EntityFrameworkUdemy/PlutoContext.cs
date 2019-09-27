@@ -10,10 +10,6 @@ namespace EntityFrameworkUdemy
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Category> Categories { get; set; }
 
-//        protected PlutoContext() : base("name=DefaultConnection")
-//                 {
-//        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
