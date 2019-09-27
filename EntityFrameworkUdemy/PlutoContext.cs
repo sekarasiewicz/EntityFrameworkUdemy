@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EntityFrameworkUdemy.EntityConfigurations;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkUdemy
 {
@@ -15,36 +16,9 @@ namespace EntityFrameworkUdemy
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CourseTag>()
-                .HasKey(ct => new { ct.CourseId, ct.TagId });
-
-            modelBuilder.Entity<CourseTag>()
-                .HasOne(ct => ct.Course)
-                .WithMany(c => c.CourseTags)
-                .HasForeignKey(ct => ct.CourseId);
-
-            modelBuilder.Entity<CourseTag>()
-                .HasOne(ct => ct.Tag)
-                .WithMany(t => t.CourseTags)
-                .HasForeignKey(ct => ct.TagId);
-
-            modelBuilder.Entity<Course>().
-                Property(c => c.Description).
-                HasDefaultValue("Default");
-
-            modelBuilder.Entity<Course>().Property(c => c.Title).IsRequired();
-
-            modelBuilder.Entity<Course>().Property(c => c.Name).IsRequired().HasMaxLength(255);
-            modelBuilder.Entity<Course>().Property(c => c.Description).IsRequired().HasMaxLength(2000);
-            modelBuilder.
-                Entity<Course>().
-                HasOne(c => c.Author).
-                WithMany(a => a.Courses).
-                HasForeignKey(c => c.AuthorId).OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<Course>().
-                HasOne(c => c.Cover).
-                WithOne(c => c.Course).HasForeignKey<Cover>(c => c.CourseId);
+            
+            modelBuilder.ApplyConfiguration(new CourseTagConfiguration());
+            modelBuilder.ApplyConfiguration(new CourseConfiguration());
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
