@@ -5,10 +5,10 @@ namespace EntityFrameworkUdemy
 {
     public class PlutoContext : DbContext
     {
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<Author> Authors { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Author> Authors { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
