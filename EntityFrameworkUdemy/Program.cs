@@ -3,7 +3,6 @@ using System.Linq;
 
 namespace EntityFrameworkUdemy
 {
-    // TODO: Check design if it is really needed
     class Program
     {
         static void Main(string[] args)
