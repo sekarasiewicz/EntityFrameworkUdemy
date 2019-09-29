@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkUdemy
 {
@@ -72,9 +72,16 @@ namespace EntityFrameworkUdemy
             IEnumerable<Course> x = context.Courses;
             x.Where(c => c.Level == (CourseLevel) 1).OrderBy(c => c.Name);
 
-            // Lazy loading problem
+            // Lazy loading problem n + 1 issue
             var course3 = context.Courses.ToList();
             foreach (var c in course3)
+            {
+                Console.WriteLine("{0}, by {1}", c.Name, c.Author.Name);
+            }
+            
+            // Eager loading
+            var course4 = context.Courses.Include(c => c.Author).ToList();
+            foreach (var c in course4)
             {
                 Console.WriteLine("{0}, by {1}", c.Name, c.Author.Name);
             }
