@@ -71,6 +71,13 @@ namespace EntityFrameworkUdemy
 
             IEnumerable<Course> x = context.Courses;
             x.Where(c => c.Level == (CourseLevel) 1).OrderBy(c => c.Name);
+
+            // Lazy loading problem
+            var course3 = context.Courses.ToList();
+            foreach (var c in course3)
+            {
+                Console.WriteLine("{0}, by {1}", c.Name, c.Author.Name);
+            }
         }
     }
 }
