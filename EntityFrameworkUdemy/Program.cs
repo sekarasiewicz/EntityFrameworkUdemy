@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EntityFrameworkUdemy
@@ -58,6 +60,17 @@ namespace EntityFrameworkUdemy
             context.Courses.Sum(c => c.FullPrice);
             context.Courses.Min(c => c.FullPrice);
             context.Courses.Max(c => c.FullPrice);
+            
+            // IQueryble
+            IQueryable<Course> courses2 = context.Courses;
+            var filtered = courses2.Where(c => c.Level == (CourseLevel) 1);
+            foreach (var course in filtered)
+            {
+                Console.WriteLine(course);
+            }
+
+            IEnumerable<Course> x = context.Courses;
+            x.Where(c => c.Level == (CourseLevel) 1).OrderBy(c => c.Name);
         }
     }
 }
