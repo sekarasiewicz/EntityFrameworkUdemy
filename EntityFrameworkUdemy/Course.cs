@@ -21,5 +21,7 @@ namespace EntityFrameworkUdemy
         public Category Category { get; set; }
         
         public Cover Cover { get; set; }
+
+        public bool IsBeginnerCourse => Level == (CourseLevel) 1;
     }
 }
