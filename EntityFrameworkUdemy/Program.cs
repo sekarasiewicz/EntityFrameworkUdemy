@@ -85,6 +85,20 @@ namespace EntityFrameworkUdemy
             {
                 Console.WriteLine("{0}, by {1}", c.Name, c.Author.Name);
             }
+            
+            // Explicit loading
+            var author = context.Authors.Single(a => a.Id == 1);
+            
+            // MSDN way
+            context.Entry(author).Collection(a => a.Courses).Load();
+            
+            // Mosh way
+            context.Courses.Where(c => c.AuthorId == author.Id).Load();
+            
+            foreach (var c in author.Courses)
+            {
+                Console.WriteLine("{0}", c.Name);
+            }
         }
     }
 }
