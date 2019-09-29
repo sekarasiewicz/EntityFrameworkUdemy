@@ -99,6 +99,11 @@ namespace EntityFrameworkUdemy
             {
                 Console.WriteLine("{0}", c.Name);
             }
+
+            var authors2 = context.Authors.ToList();
+            var ids = authors2.Select(a => a.Id);
+
+            context.Courses.Where(c => ids.Contains(c.AuthorId) && c.FullPrice == 0).Load();
         }
     }
 }
