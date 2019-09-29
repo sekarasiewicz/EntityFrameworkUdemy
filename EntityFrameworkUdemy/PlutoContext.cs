@@ -19,7 +19,7 @@ namespace EntityFrameworkUdemy
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=127.0.0.1;Database=CodeFirstDemo;User Id=sa;Password=Your_password123");
+            optionsBuilder.UseLazyLoadingProxies(false).UseSqlServer("Server=127.0.0.1;Database=CodeFirstDemo;User Id=sa;Password=Your_password123");
         }
     }
 }
