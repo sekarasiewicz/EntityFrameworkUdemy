@@ -38,6 +38,26 @@ namespace EntityFrameworkUdemy
             {
                 Console.WriteLine(q);
             }
+
+            // Partitioning
+            context.Courses.Skip(10).Take(10);
+            
+            // Element operators
+            context.Courses.First();
+            context.Courses.FirstOrDefault(c => c.FullPrice > 100);
+            context.Courses.OrderBy(c => c.Level).Last(c => c.FullPrice > 100);
+            context.Courses.SingleOrDefault(c => c.Id == 1);
+            
+            // Quantifying
+            var all = context.Courses.All(c => c.FullPrice > 10);
+            var any = context.Courses.Any(c => c.FullPrice > 10);
+            
+            // Aggregating
+            context.Courses.Count();
+            context.Courses.Average(c => c.FullPrice);
+            context.Courses.Sum(c => c.FullPrice);
+            context.Courses.Min(c => c.FullPrice);
+            context.Courses.Max(c => c.FullPrice);
         }
     }
 }
