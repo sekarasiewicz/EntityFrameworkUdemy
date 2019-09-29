@@ -61,7 +61,7 @@ namespace EntityFrameworkUdemy
             context.Courses.Min(c => c.FullPrice);
             context.Courses.Max(c => c.FullPrice);
             
-            // IQueryble
+            // IQueryable
             IQueryable<Course> courses2 = context.Courses;
             var filtered = courses2.Where(c => c.Level == (CourseLevel) 1);
             foreach (var course in filtered)
