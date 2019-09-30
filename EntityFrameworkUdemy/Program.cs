@@ -127,5 +127,15 @@ namespace EntityFrameworkUdemy
             context.Courses.Add(course);
             context.SaveChanges();
         }
+
+        private static void Update()
+        {
+            var context = new PlutoContext();
+            var course = context.Courses.Find(4);
+            course.Name = "New Name";
+            course.AuthorId = 2;
+
+            context.SaveChanges();
+        }
     }
 }
