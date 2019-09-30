@@ -43,24 +43,24 @@ namespace EntityFrameworkUdemy
 
             // Partitioning
             context.Courses.Skip(10).Take(10);
-            
+
             // Element operators
             context.Courses.First();
             context.Courses.FirstOrDefault(c => c.FullPrice > 100);
             context.Courses.OrderBy(c => c.Level).Last(c => c.FullPrice > 100);
             context.Courses.SingleOrDefault(c => c.Id == 1);
-            
+
             // Quantifying
             var all = context.Courses.All(c => c.FullPrice > 10);
             var any = context.Courses.Any(c => c.FullPrice > 10);
-            
+
             // Aggregating
             context.Courses.Count();
             context.Courses.Average(c => c.FullPrice);
             context.Courses.Sum(c => c.FullPrice);
             context.Courses.Min(c => c.FullPrice);
             context.Courses.Max(c => c.FullPrice);
-            
+
             // IQueryable
             IQueryable<Course> courses2 = context.Courses;
             var filtered = courses2.Where(c => c.Level == (CourseLevel) 1);
@@ -73,28 +73,28 @@ namespace EntityFrameworkUdemy
             x.Where(c => c.Level == (CourseLevel) 1).OrderBy(c => c.Name);
 
             // Lazy loading problem n + 1 issue
-            var course3 = context.Courses.ToList();
-            foreach (var c in course3)
-            {
-                Console.WriteLine("{0}, by {1}", c.Name, c.Author.Name);
-            }
-            
+//            var course3 = context.Courses.ToList();
+//            foreach (var c in course3)
+//            {
+//                Console.WriteLine("{0}, by {1}", c.Name, c.Author.Name);
+//            }
+
             // Eager loading
             var course4 = context.Courses.Include(c => c.Author).ToList();
             foreach (var c in course4)
             {
                 Console.WriteLine("{0}, by {1}", c.Name, c.Author.Name);
             }
-            
+
             // Explicit loading
             var author = context.Authors.Single(a => a.Id == 1);
-            
+
             // MSDN way
             context.Entry(author).Collection(a => a.Courses).Load();
-            
+
             // Mosh way
             context.Courses.Where(c => c.AuthorId == author.Id).Load();
-            
+
             foreach (var c in author.Courses)
             {
                 Console.WriteLine("{0}", c.Name);
@@ -104,6 +104,27 @@ namespace EntityFrameworkUdemy
             var ids = authors2.Select(a => a.Id);
 
             context.Courses.Where(c => ids.Contains(c.AuthorId) && c.FullPrice == 0).Load();
+
+            // Insert Actions
+            AddCourse();
+        }
+
+        private static void AddCourse()
+        {
+            var context = new PlutoContext();
+
+            var course = new Course
+            {
+                Name = "New Course",
+                Title = "Some Title",
+                Description = "New Description",
+                FullPrice = 19.95f,
+                Level = CourseLevel.Beginner,
+                Author = new Author {Name = "Sebastian Karasiewicz"}
+            };
+
+            context.Courses.Add(course);
+            context.SaveChanges();
         }
     }
 }
