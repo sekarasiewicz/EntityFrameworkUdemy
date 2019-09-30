@@ -112,15 +112,16 @@ namespace EntityFrameworkUdemy
         private static void AddCourse()
         {
             var context = new PlutoContext();
-
+            var author = context.Authors.Single(a => a.Id == 1);
+            
             var course = new Course
             {
-                Name = "New Course",
-                Title = "Some Title",
-                Description = "New Description",
+                Name = "New Course 2",
+                Title = "Some Title 2",
+                Description = "New Description 2",
                 FullPrice = 19.95f,
                 Level = CourseLevel.Beginner,
-                Author = new Author {Name = "Sebastian Karasiewicz"}
+                Author = author
             };
 
             context.Courses.Add(course);
