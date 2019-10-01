@@ -113,7 +113,7 @@ namespace EntityFrameworkUdemy
         {
             var context = new PlutoContext();
             var author = context.Authors.Single(a => a.Id == 1);
-            
+
             var course = new Course
             {
                 Name = "New Course 2",
@@ -134,6 +134,26 @@ namespace EntityFrameworkUdemy
             var course = context.Courses.Find(4);
             course.Name = "New Name";
             course.AuthorId = 2;
+
+            context.SaveChanges();
+        }
+
+        private static void Delete()
+        {
+            var context = new PlutoContext();
+            var course = context.Courses.Find(6);
+            context.Courses.Remove(course);
+
+            context.SaveChanges();
+        }
+
+        private static void DeleteMany()
+        {
+            var context = new PlutoContext();
+
+            var author = context.Authors.Include(a => a.Courses).Single(a => a.Id == 2);
+            context.Courses.RemoveRange(author.Courses);
+            context.Authors.Remove(author);
 
             context.SaveChanges();
         }
