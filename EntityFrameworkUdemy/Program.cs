@@ -166,6 +166,7 @@ namespace EntityFrameworkUdemy
 
             foreach (var entry in entries)
             {
+                entry.Reload();
                 Console.WriteLine(entry.State);
             }
         }
