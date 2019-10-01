@@ -157,5 +157,17 @@ namespace EntityFrameworkUdemy
 
             context.SaveChanges();
         }
+
+        private static void ChangeTracker()
+        {
+            var context = new PlutoContext();
+            context.Authors.Add(new Author {Name = "New Author"});
+            var entries = context.ChangeTracker.Entries();
+
+            foreach (var entry in entries)
+            {
+                Console.WriteLine(entry.State);
+            }
+        }
     }
 }
