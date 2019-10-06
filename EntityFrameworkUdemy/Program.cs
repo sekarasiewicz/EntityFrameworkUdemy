@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EntityFrameworkUdemy.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkUdemy
@@ -107,6 +108,14 @@ namespace EntityFrameworkUdemy
 
             // Insert Actions
             AddCourse();
+
+            // Repository
+
+            using var unitOfWork = new UnitOfWork(new PlutoContext());
+            {
+                var course = unitOfWork.Courses.Get(1);
+                var courses7 = unitOfWork.Courses.GetCoursesWithAuthors(1, 4);
+            }
         }
 
         private static void AddCourse()
